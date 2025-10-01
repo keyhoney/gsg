@@ -32,28 +32,44 @@ export const onRequest = app
     "",
     zValidator("json", emailSchema),
     async (c) => {
-      const { email, token } = c.req.valid("json");
-      const env = c.env;
+      try {
+        const { email, token } = c.req.valid("json");
+        const env = c.env;
 
-      const remoteIP = c.req.header("CF-Connecting-IP");
-      const turnstile = await verifyTurnstile(env.TURNSTILE_SECRET, token, remoteIP);
-      if (!turnstile) return c.json({ ok: false, message: "Turnstile 검증에 실패했습니다." }, 400);
+        // 환경 변수 체크
+        if (!env.OTP_KV) {
+          console.error("Missing OTP_KV binding");
+          return c.json({ ok: false, message: "서버 설정 오류입니다." }, 500);
+        }
 
-      const rateLimited = await isRateLimited(env.OTP_KV, email);
-      if (rateLimited) {
-        return c.json({ ok: false, message: "OTP 요청이 너무 많습니다. 잠시 후 다시 시도해주세요." }, 429);
+        if (!env.TURNSTILE_SECRET) {
+          console.error("Missing TURNSTILE_SECRET");
+          return c.json({ ok: false, message: "서버 설정 오류입니다." }, 500);
+        }
+
+        const remoteIP = c.req.header("CF-Connecting-IP");
+        const turnstile = await verifyTurnstile(env.TURNSTILE_SECRET, token, remoteIP);
+        if (!turnstile) return c.json({ ok: false, message: "Turnstile 검증에 실패했습니다." }, 400);
+
+        const rateLimited = await isRateLimited(env.OTP_KV, email);
+        if (rateLimited) {
+          return c.json({ ok: false, message: "OTP 요청이 너무 많습니다. 잠시 후 다시 시도해주세요." }, 429);
+        }
+
+        const otp = generateOtp();
+        await storeOtp(env.OTP_KV, email, otp);
+
+        await sendEmail(env, {
+          to: email,
+          subject: "KeyHoney 해설 플랫폼 OTP",
+          html: `<p>OTP 코드는 <strong>${otp}</strong> 입니다. 5분 내에 입력해주세요.</p>`,
+        });
+
+        return c.json({ ok: true, message: "OTP가 발송되었습니다." });
+      } catch (error) {
+        console.error("OTP request error:", error);
+        return c.json({ ok: false, message: "OTP 발송에 실패했습니다." }, 500);
       }
-
-      const otp = generateOtp();
-      await storeOtp(env.OTP_KV, email, otp);
-
-      await sendEmail(env, {
-        to: email,
-        subject: "KeyHoney 해설 플랫폼 OTP",
-        html: `<p>OTP 코드는 <strong>${otp}</strong> 입니다. 5분 내에 입력해주세요.</p>`,
-      });
-
-      return c.json({ ok: true, message: "OTP가 발송되었습니다." });
     }
   )
   .fetch;

@@ -35,30 +35,9 @@ export const onRequest: PagesFunction[] = [
       "camera=()",
       "microphone=()",
       "geolocation=()",
-      "gyroscope=()",
-      "magnetometer=()",
       "payment=()",
       "usb=()",
-      "accelerometer=()",
-      "ambient-light-sensor=()",
-      "autoplay=()",
-      "battery=()",
-      "bluetooth=()",
-      "clipboard-read=()",
-      "clipboard-write=()",
-      "display-capture=()",
-      "fullscreen=()",
-      "gamepad=()",
-      "midi=()",
-      "notifications=()",
-      "picture-in-picture=()",
-      "publickey-credentials-get=()",
-      "screen-wake-lock=()",
-      "serial=()",
-      "speaker-selection=()",
-      "sync-xhr=()",
-      "web-share=()",
-      "xr-spatial-tracking=()"
+      "interest-cohort=()"
     ].join(", "));
     
     // HSTS (HTTPS 강제)
