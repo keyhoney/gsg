@@ -3,12 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:pages\"",
-    "dev:client": "vite build --watch --mode development",
-    "dev:pages": "wrangler pages dev dist --local --persist-to .wrangler/state",
-    "build": "npm run clean && npm run build:client",
-    "build:client": "vite build",
-    "clean": "rimraf dist .wrangler .cloudflare"
+    "build": "vite build"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.1",
@@ -37,19 +32,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "rimraf": "^5.0.5",
     "@cloudflare/workers-types": "^4.20240909.0",
     "@types/node": "^22.5.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.0.0",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.5.4",
-    "vite": "^5.4.7",
-    "wrangler": "^4.40.3"
+    "vite": "^5.4.7"
   }
 }
