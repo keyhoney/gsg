@@ -1,0 +1,2 @@
+const e="p001",t="algebra-1",m=16,b=1,o="초급",d="2분",s=["일차방정식","이항계수"],c=["방정식","해","변수"],a="ALG1-001-016-001",r=["p002","p005"],n="2024-01-01T00:00:00Z",p="2024-01-01T00:00:00Z",l={id:e,bookId:t,page:16,problemNumber:1,difficulty:o,estimatedTime:d,concepts:s,keywords:c,qrCode:a,relatedProblems:r,createdAt:n,updatedAt:p};export{t as bookId,s as concepts,n as createdAt,l as default,o as difficulty,d as estimatedTime,e as id,c as keywords,m as page,b as problemNumber,a as qrCode,r as relatedProblems,p as updatedAt};
+//# sourceMappingURL=metadata-BRduDrtA.js.map
