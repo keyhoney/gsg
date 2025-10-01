@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { requestOtp } from "@/lib/api/auth";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 import { ProgressIndicator } from "@/components/ProgressIndicator";
 
 export const AuthEmailPage = () => {
@@ -102,12 +103,10 @@ export const AuthEmailPage = () => {
 
           <div className="space-y-2">
             <label className="block text-sm font-medium">봇 방지 확인</label>
-            <input
-              className="w-full rounded-xl border border-dashed border-muted-foreground px-4 py-3 text-center text-sm text-muted-foreground"
-              placeholder="Turnstile 토큰"
-              value={turnstileToken}
-              onChange={(e) => setTurnstileToken(e.target.value)}
-              required
+            <TurnstileWidget
+              siteKey="1x00000000000000000000AA"
+              onSuccess={(token) => setTurnstileToken(token)}
+              onError={() => setMessage("봇 검증에 실패했습니다. 페이지를 새로고침해주세요.")}
             />
           </div>
 
