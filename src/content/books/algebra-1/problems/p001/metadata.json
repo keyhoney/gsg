@@ -1,0 +1,14 @@
+{
+  "id": "p001",
+  "bookId": "algebra-1",
+  "page": 16,
+  "problemNumber": 1,
+  "difficulty": "초급",
+  "estimatedTime": "2분",
+  "concepts": ["일차방정식", "이항계수"],
+  "keywords": ["방정식", "해", "변수"],
+  "qrCode": "ALG1-001-016-001",
+  "relatedProblems": ["p002", "p005"],
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}

@@ -1,0 +1,423 @@
+@import "./fonts.css";
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 224 71% 4%;
+  --muted: 220 15% 90%;
+  --muted-foreground: 220 10% 40%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 71% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 71% 4%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 210 20% 98%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 15% 46%;
+  --accent: 25 95% 53%;
+  --accent-foreground: 210 20% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 33 100% 96%;
+  --ring: 262 83% 58%;
+  --radius: 16px;
+}
+
+.dark {
+  --background: 230 21% 8%;
+  --foreground: 210 20% 98%;
+  --muted: 230 17% 20%;
+  --muted-foreground: 228 24% 74%;
+  --popover: 230 21% 10%;
+  --popover-foreground: 210 20% 98%;
+  --card: 230 21% 10%;
+  --card-foreground: 210 20% 98%;
+  --border: 226 27% 30%;
+  --input: 226 27% 30%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 210 20% 98%;
+  --secondary: 228 19% 25%;
+  --secondary-foreground: 210 20% 98%;
+  --accent: 23 92% 55%;
+  --accent-foreground: 210 20% 98%;
+  --destructive: 0 63% 52%;
+  --destructive-foreground: 210 20% 98%;
+  --ring: 262 83% 58%;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* KaTeX 수식 렌더링 스타일 */
+.math-renderer {
+  font-size: 1.1em;
+}
+
+.math-renderer .katex {
+  font-size: 1em;
+}
+
+.math-renderer .katex-display {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.math-renderer .katex-error {
+  color: #cc0000;
+  background-color: #f8f8f8;
+  border: 1px solid #cc0000;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px 0;
+}
+
+/* 수식 블록 스타일 */
+.math-block {
+  transition: all 0.2s ease;
+}
+
+.math-block:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 수식 텍스트 스타일 */
+.math-text {
+  line-height: 1.8;
+}
+
+.math-text .katex {
+  font-size: 1.05em;
+}
+
+/* 다크 모드에서의 수식 스타일 */
+.dark .math-renderer .katex-error {
+  background-color: #2d1b1b;
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+/* 반응형 수식 */
+@media (max-width: 768px) {
+  .math-renderer {
+    font-size: 0.9em;
+  }
+  
+  .math-renderer .katex {
+    font-size: 0.9em;
+  }
+}
+
+/* 보안 시스템 스타일 */
+.watermark-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.watermark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.watermark-item {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  color: rgba(102, 102, 102, 0.1);
+  font-size: 12px;
+  font-family: monospace;
+  z-index: 1000;
+}
+
+.watermark-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.content-protected {
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.content-protected * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* 보안 경고 애니메이션 */
+@keyframes security-warning {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.security-warning {
+  animation: security-warning 1s infinite;
+}
+
+/* 워터마크 보호 */
+.watermark-protected::before {
+  content: attr(data-watermark);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  font-size: 14px;
+  color: #666;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: none;
+}
+
+/* 인쇄 시 워터마크 강화 */
+@media print {
+  .watermark-protected::before {
+    opacity: 0.3 !important;
+    font-size: 10px !important;
+  }
+  
+  .watermark-protected::after {
+    content: "인쇄일: " attr(data-print-date);
+    position: fixed !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    font-size: 8px !important;
+    color: #999 !important;
+    opacity: 0.7 !important;
+  }
+}
+
+/* 보안 대시보드 */
+.security-dashboard {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dark .security-dashboard {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* 보안 모니터 */
+.security-monitor {
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.dark .security-monitor {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* 위험 수준별 색상 */
+.risk-low {
+  color: #10b981;
+  background-color: #d1fae5;
+}
+
+.risk-medium {
+  color: #f59e0b;
+  background-color: #fef3c7;
+}
+
+.risk-high {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+.risk-critical {
+  color: #dc2626;
+  background-color: #fecaca;
+  animation: security-warning 0.5s infinite;
+}
+
+/* 다크 모드에서의 위험 수준별 색상 */
+.dark .risk-low {
+  color: #34d399;
+  background-color: #064e3b;
+}
+
+.dark .risk-medium {
+  color: #fbbf24;
+  background-color: #451a03;
+}
+
+.dark .risk-high {
+  color: #f87171;
+  background-color: #7f1d1d;
+}
+
+.dark .risk-critical {
+  color: #fca5a5;
+  background-color: #991b1b;
+  animation: security-warning 0.5s infinite;
+}
+
+/* 읽기 모드 스타일 */
+.reading-mode {
+  --content-font-size: 18px;
+  --content-line-height: 1.8;
+  --content-max-width: 65ch;
+}
+
+.reading-mode .prose {
+  font-size: var(--content-font-size) !important;
+  line-height: var(--content-line-height) !important;
+  max-width: var(--content-max-width) !important;
+  margin: 0 auto !important;
+}
+
+.reading-mode .prose h1,
+.reading-mode .prose h2,
+.reading-mode .prose h3,
+.reading-mode .prose h4,
+.reading-mode .prose h5,
+.reading-mode .prose h6 {
+  font-weight: 600 !important;
+  margin-top: 2em !important;
+  margin-bottom: 1em !important;
+}
+
+.reading-mode .prose p {
+  margin-bottom: 1.5em !important;
+}
+
+.reading-mode .prose ul,
+.reading-mode .prose ol {
+  margin-bottom: 1.5em !important;
+}
+
+.reading-mode .prose li {
+  margin-bottom: 0.5em !important;
+}
+
+/* 폰트 크기 조절 */
+:root {
+  --content-font-size: 16px;
+}
+
+.prose {
+  font-size: var(--content-font-size) !important;
+}
+
+/* 콘텐츠 레이아웃 */
+.content-layout {
+  min-height: 100vh;
+}
+
+.content-layout .sidebar {
+  width: 280px;
+  background: hsl(var(--card));
+  border-right: 1px solid hsl(var(--border));
+}
+
+.content-layout .sidebar.open {
+  display: block;
+}
+
+/* 향상된 수식 렌더러 */
+.enhanced-math-renderer {
+  position: relative;
+  display: inline-block;
+}
+
+.enhanced-math-renderer:hover .absolute {
+  opacity: 1;
+}
+
+.enhanced-math-renderer .absolute {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* 그리드 패턴 배경 */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* 반응형 개선 */
+@media (max-width: 768px) {
+  .content-layout .sidebar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .content-layout .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .reading-mode .prose {
+    font-size: calc(var(--content-font-size) * 0.9) !important;
+    max-width: 100% !important;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 고대비 모드 */
+@media (prefers-contrast: high) {
+  .prose {
+    color: #000 !important;
+  }
+  
+  .dark .prose {
+    color: #fff !important;
+  }
+}

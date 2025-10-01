@@ -1,0 +1,14 @@
+{
+  "id": "algebra-1",
+  "title": "대수학 1",
+  "author": "김수학",
+  "publisher": "수학출판사",
+  "isbn": "978-89-1234-567-8",
+  "totalPages": 350,
+  "totalProblems": 150,
+  "difficulty": "고등학교 1학년",
+  "subjects": ["대수학", "방정식", "함수"],
+  "qrCodePrefix": "ALG1",
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}
