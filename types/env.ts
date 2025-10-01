@@ -4,10 +4,7 @@ export interface Env {
   DB: D1Database;
   OTP_KV: KVNamespace;
   SESSION_KV: KVNamespace;
-  SECURITY_KV: KVNamespace;
-  RATE_LIMIT_KV: KVNamespace;
   TURNSTILE_SECRET: string;
-  EMAIL_API_KEY: string;
   ORIGIN: string;
   LUCIA_SESSION_SECRET: string;
   ADMIN_API_KEY: string;

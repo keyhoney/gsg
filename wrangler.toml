@@ -18,6 +18,5 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
   ORIGIN = "${ORIGIN_URL}"
   TURNSTILE_SECRET = "${TURNSTILE_SECRET}"
-  EMAIL_API_KEY = "${EMAIL_API_KEY}"
   LUCIA_SESSION_SECRET = "${LUCIA_SESSION_SECRET}"
   ADMIN_API_KEY = "${ADMIN_API_KEY}"

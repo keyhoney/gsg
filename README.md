@@ -184,13 +184,13 @@ gsg/
 1. **Cloudflare Pages 대시보드** → 프로젝트 선택
 2. **Settings** 탭 클릭
 3. **Environment variables** 섹션에서 다음 변수들 추가:
-   - `D1_DATABASE_ID`: D1 데이터베이스 ID
-   - `OTP_KV_ID`: OTP용 KV 네임스페이스 ID
-   - `SESSION_KV_ID`: 세션용 KV 네임스페이스 ID
-   - `SECURITY_KV_ID`: 보안 로그용 KV 네임스페이스 ID
-   - `RATE_LIMIT_KV_ID`: Rate Limiting용 KV 네임스페이스 ID
+   - `D1_DATABASE_ID`: D1 데이터베이스 ID ㅇㅇ
+   - `OTP_KV_ID`: OTP용 KV 네임스페이스 ID ㅇㅇ
+   - `SESSION_KV_ID`: 세션용 KV 네임스페이스 ID ㅇㅇ
+   - `SECURITY_KV_ID`: 보안 로그용 KV 네임스페이스 ID ㅇㅇ
+   - `RATE_LIMIT_KV_ID`: Rate Limiting용 KV 네임스페이스 ID ㅇㅇ
    - `ORIGIN_URL`: 배포된 사이트 URL
-   - `TURNSTILE_SECRET`: Cloudflare Turnstile 비밀키
+   - `TURNSTILE_SECRET`: Cloudflare Turnstile 비밀키 ㅇㅇ
    - `EMAIL_API_KEY`: 이메일 서비스 API 키
    - `LUCIA_SESSION_SECRET`: 랜덤 생성된 32바이트 문자열
    - `ADMIN_API_KEY`: 관리자용 API 키
