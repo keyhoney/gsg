@@ -104,7 +104,7 @@ export const AuthEmailPage = () => {
           <div className="space-y-2">
             <label className="block text-sm font-medium">봇 방지 확인</label>
             <TurnstileWidget
-              siteKey="1x00000000000000000000AA"
+              siteKey="0x4AAAAAAAB4FxRgXm9BoD3j0~"
               onSuccess={(token) => setTurnstileToken(token)}
               onError={() => setMessage("봇 검증에 실패했습니다. 페이지를 새로고침해주세요.")}
             />
